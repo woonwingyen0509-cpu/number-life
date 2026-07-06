@@ -15,15 +15,26 @@
         input[type="date"] { width: 100%; padding: 15px; border-radius: 10px; border: 2px solid #45f3ff; background: #0b0c10; color: #fff; font-size: 16px; outline: none; }
         .btn { width: 100%; padding: 15px; background: linear-gradient(135deg, #45f3ff, #1f2833); color: #0b0c10; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(69, 243, 255, 0.4); text-transform: uppercase; }
         .result-box { margin-top: 30px; display: none; }
-        .triangle-display { background: #0b0c10; padding: 20px; border-radius: 15px; margin-bottom: 25px; border: 1px dashed #45f3ff; }
-        .num-row { display: flex; justify-content: space-around; margin: 10px 0; font-size: 14px; }
-        .num-badge { background: #1f2833; padding: 5px 12px; border-radius: 20px; color: #45f3ff; font-weight: bold; border: 1px solid #45f3ff; }
-        .num-badge.core { background: #45f3ff; color: #0b0c10; box-shadow: 0 0 15px rgba(69, 243, 255, 0.8); }
+        
+        /* 核心数字大展示区 */
+        .core-display { background: #0b0c10; padding: 30px 20px; border-radius: 15px; margin-bottom: 25px; border: 1px dashed #45f3ff; text-align: center; }
+        .core-title { font-size: 16px; color: #66fcf1; margin-bottom: 15px; letter-spacing: 1px; }
+        .num-badge.core { background: #45f3ff; color: #0b0c10; box-shadow: 0 0 20px rgba(69, 243, 255, 0.8); padding: 10px 25px; border-radius: 30px; font-weight: bold; font-size: 28px; }
+        
         .section-title { font-size: 16px; color: #45f3ff; margin: 25px 0 15px 0; border-left: 4px solid #66fcf1; padding-left: 10px; text-transform: uppercase; }
         .analysis-text { font-size: 14px; line-height: 1.6; color: #e5e5e5; background: #2f3944; padding: 15px; border-radius: 10px; text-align: justify; }
-        .lock-banner { background: linear-gradient(135deg, #1f2833, #0b0c10); border: 1px solid #45f3ff; padding: 20px; border-radius: 12px; text-align: center; margin-top: 25px; }
-        .lock-title { color: #ffbd59; font-weight: bold; margin-bottom: 8px; }
-        .lock-btn { background: #ffbd59; color: #0b0c10; padding: 12px 24px; border: none; border-radius: 8px; font-weight: bold; margin-top: 12px; cursor: pointer; text-transform: uppercase; }
+        
+        /* 模糊锁定效果 */
+        .locked-container { position: relative; overflow: hidden; border-radius: 10px; }
+        .locked-content { filter: blur(5px); opacity: 0.5; user-select: none; pointer-events: none; }
+        .locked-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; background: rgba(31, 40, 51, 0.4); z-index: 10; }
+        .locked-overlay span { font-size: 20px; margin-bottom: 5px; }
+        .locked-overlay p { color: #ffbd59; font-weight: bold; font-size: 14px; text-transform: uppercase; letter-spacing: 1px; background: rgba(0,0,0,0.6); padding: 5px 15px; border-radius: 20px;}
+
+        .lock-banner { background: linear-gradient(135deg, #1f2833, #0b0c10); border: 1px solid #ffbd59; padding: 20px; border-radius: 12px; text-align: center; margin-top: 35px; box-shadow: 0 0 15px rgba(255, 189, 89, 0.2); }
+        .lock-title { color: #ffbd59; font-weight: bold; margin-bottom: 8px; font-size: 16px;}
+        .lock-btn { background: #ffbd59; color: #0b0c10; padding: 15px 24px; border: none; border-radius: 8px; font-weight: bold; font-size: 15px; margin-top: 15px; cursor: pointer; text-transform: uppercase; width: 100%; box-shadow: 0 5px 15px rgba(255, 189, 89, 0.4); transition: transform 0.2s;}
+        .lock-btn:active { transform: scale(0.98); }
     </style>
 </head>
 <body>
@@ -37,37 +48,54 @@
     <button class="btn" onclick="calculateDestiny()">Unlock My Destiny / Bongkar Rahsia</button>
     
     <div class="result-box" id="resultBox">
-        <div class="section-title">📊 Your Destiny Numbers / Nombor Sifat Anda</div>
-        <div class="triangle-display">
-            <div class="num-row">
-                <span>Outer Persona (A+D): <span class="num-badge" id="mianju">?</span></span>
-                <span>Social/Talent (C+E): <span class="num-badge" id="shejiao">?</span></span>
+        
+        <!-- 核心数字展示区 (去掉了A, C, D, E等详细数字) -->
+        <div class="core-display">
+            <div class="core-title">YOUR MASTER DESTINY NUMBER</div>
+            <span>✨ <span class="num-badge core" id="hexin">?</span> ✨</span>
+        </div>
+        
+        <!-- 免费版：外在人格钩子 -->
+        <div class="section-title">👤 Core Personality / Sifat Peribadi Utama</div>
+        <div class="analysis-text" id="friendView"></div>
+        
+        <!-- 付费墙 1：恋爱关系 -->
+        <div class="section-title">💖 Love & Relationship / Rahsia Cinta & Jodoh</div>
+        <div class="locked-container">
+            <div class="analysis-text locked-content">
+                <b>[EN]</b> This section contains deep analysis about your romantic compatibility, hidden desires, and how you behave in a relationship. We will reveal your secret love code here.<br><br>
+                <b>[BM]</b> Bahagian ini mengandungi analisis mendalam tentang keserasian romantik anda, keinginan tersembunyi, dan kod rahsia cinta anda.
             </div>
-            <div class="num-row" style="justify-content: center;"><span style="font-size: 16px;">✨ CORE NUMBER (F): <span class="num-badge core" id="hexin">?</span> ✨</span></div>
-            <div class="num-row">
-                <span>Subconscious (D+F): <span class="num-badge" id="qianqian">?</span></span>
-                <span>Relationship (E+F): <span class="num-badge" id="qinmi">?</span></span>
+            <div class="locked-overlay">
+                <span>🔒</span>
+                <p>Premium Unlock</p>
             </div>
         </div>
         
-        <div class="section-title">👤 Public View / Pandangan Orang Luar</div>
-        <div class="analysis-text" id="friendView"></div>
-        
-        <div class="section-title">💖 Love & Relationship / Rahsia Cinta & Jodoh</div>
-        <div class="analysis-text" id="loverView"></div>
-        
+        <!-- 付费墙 2：事业财富 -->
         <div class="section-title">💼 Wealth & Business / Rezeki & Kerjaya</div>
-        <div class="analysis-text" id="workView"></div>
+        <div class="locked-container">
+            <div class="analysis-text locked-content">
+                <b>[EN]</b> Discover your wealth frequency, best career path, and business potential. Are you meant to be a leader, creator, or investor? Find out your wealth age!<br><br>
+                <b>[BM]</b> Ketahui frekuensi rezeki anda, laluan kerjaya terbaik, dan potensi perniagaan. Adakah anda dilahirkan untuk menjadi bos?
+            </div>
+            <div class="locked-overlay">
+                <span>🔒</span>
+                <p>Premium Unlock</p>
+            </div>
+        </div>
         
+        <!-- 付费引导 Banner -->
         <div class="lock-banner">
-            <div class="lock-title">🔒 UNLOCK YOUR LIFE TIMELINE & WEALTH AGE 大运</div>
-            <p style="font-size: 13px; color: #a0aec0;">When will you hit your golden wealth age? Can your business succeed? / Bila waktu rezeki mencurah? Rahsia kejayaan perniagaan anda!</p>
-           <button class="lock-btn" onclick="window.open('https://wa.me/60189544207?text=Hi%20Master%2C%20I%20want%20to%20get%20my%20Premium%20Destiny%20Report%20for%20RM9.90%21', '_blank')">
-    💰 Click to Pay RM9.90 via WhatsApp
-</button>
+            <div class="lock-title">🔒 UNLOCK FULL DEEP-DIVE REPORT</div>
+            <p style="font-size: 13px; color: #a0aec0; margin-bottom: 10px;">Find out your true career path, hidden wealth phase & relationship secrets! / Bongkar potensi sebenar, rezeki & rahsia jodoh anda!</p>
+            <button class="lock-btn" onclick="window.open('https://wa.me/60189544207?text=Hi%20Master%2C%20I%20want%20to%20get%20my%20Premium%20Destiny%20Report%20for%20RM39%21', '_blank')">
+                💰 Pay RM39 via WhatsApp to Unlock
+            </button>
         </div>
     </div>
 </div>
+
 <script>
 function singleDigest(num) {
     while (num > 9) {
@@ -77,12 +105,15 @@ function singleDigest(num) {
     }
     return num;
 }
+
 function calculateDestiny() {
     const dateInput = document.getElementById('birthday').value;
     if (!dateInput) return;
     const date = new Date(dateInput), year = date.getFullYear(), month = date.getMonth() + 1, day = date.getDate();
     
+    // JS后台依然计算完整数据用于逻辑判断，但不再显示给前端UI
     let hexin_F = 9, ad = 8, ce = 5, df = 4, ef = 5;
+    
     if (year !== 2002 || month !== 5 || day !== 9) {
         hexin_F = singleDigest(year + month + day);
         ad = singleDigest(month + day);
@@ -93,26 +124,24 @@ function calculateDestiny() {
     
     let isBF = (hexin_F === 6 && ce === 8); 
 
+    // 只更新核心数字F
     document.getElementById('hexin').innerText = hexin_F;
-    document.getElementById('mianju').innerText = ad;
-    document.getElementById('shejiao').innerText = ce;
-    document.getElementById('qianqian').innerText = df;
-    document.getElementById('qinmi').innerText = ef;
 
+    // 只吐出免费版的表面分析 (Public View)
     if (hexin_F === 9 && ce === 5) {
-        document.getElementById('friendView').innerHTML = "<b>[EN]</b> You look very funny, social and charismatic outside (C+E=5). People love your vibes! But deep down, you love your personal space and privacy. You are a selective loner.<br><br><b>[BM]</b> Luaran nampak sangat peramah, pandai borak & kelakar. Tapi sebenarnya, anda sangat menjaga 'privacy' & suka bersendirian. Bukan semua orang boleh masuk dalam hati anda.";
-        document.getElementById('loverView').innerHTML = "<b>[EN]</b> In love, you hate being controlled! You need freedom. But once you deeply love someone, you become very protective, loyal, and a bit jealous (Core 9 clingy side).<br><br><b>[BM]</b> Dalam cinta, paling pantang kalau kena kongkong! Tapi sekali sudah sayang, anda akan jadi sangat setia, 'protective' & kuat cemburu diam-diam.";
-        document.getElementById('workView').innerHTML = "<b>[EN]</b> You have strong business DNA (A+D=8). Working a 9-to-5 job will limit you. You are perfect for online business, TikTok content creator, or building your own brand.<br><br><b>[BM]</b> Ada bakat besar jadi bos / berniaga. Kerja makan gaji biasa tak sesuai dengan jiwa anda. Sangat bernasib baik kalau buat bisnes online atau TikTok creator!";
+        document.getElementById('friendView').innerHTML = "<b>[EN]</b> You look very funny, social and charismatic outside. People love your vibes! But deep down, you love your personal space and privacy. You are a selective loner.<br><br><b>[BM]</b> Luaran nampak sangat peramah, pandai borak & kelakar. Tapi sebenarnya, anda sangat menjaga 'privacy' & suka bersendirian. Bukan semua orang boleh masuk dalam hati anda.";
     } else if (isBF || (hexin_F === 6 && ef === 3)) {
         document.getElementById('friendView').innerHTML = "<b>[EN]</b> Looks like a macho, responsible leader and gentleman outside. Very hardworking.<br><br><b>[BM]</b> Luaran nampak macam 'macho', bertanggungjawab & matang. Sangat kuat bekerja.";
-        document.getElementById('loverView').innerHTML = "<b>[EN]</b> Total plot twist! In front of you, he turns into a clingy 'baby boy' who loves to soft-launch his crazy, funny, and childish side. Very caring.<br><br><b>[BM]</b> 'Plot twist' habis! Di depan pasangan, dia bertukar jadi manja macam 'baby boy', kelakar & suka menyakat. Sangat mementingkan pasangan.";
-        document.getElementById('workView').innerHTML = "<b>[EN]</b> High action taker. All his hard work to make money is just to build a secure shelter for the person he loves.<br><br><b>[BM]</b> Jenis buat sampai jadi. Dia rajin cari duit semuanya demi nak bagi kesenangan & keselesaan kepada orang yang dia sayang.";
     } else {
         document.getElementById('friendView').innerHTML = "<b>[EN]</b> You have a unique and strong aura. People respect your opinions, and you know how to balance between being friendly and keeping boundaries.<br><br><b>[BM]</b> Anda ada aura tersendiri. Orang sekeliling hormat pendapat anda. Pandai bawa diri dalam pergaulan.";
-        document.getElementById('loverView').innerHTML = "<b>[EN]</b> You need high emotional connection and trust. Once your partner gives you full security, you will protect the relationship till the end.<br><br><b>[BM]</b> Anda perlukan kepercayaan & kesetiaan yang tinggi. Kalau pasangan pandai jaga hati, anda akan setia sampai hujung nyawa.";
-        document.getElementById('workView').innerHTML = "<b>[EN]</b> Good intuition for money and trends. Don't jump around different industries; focus on one vertical, and your wealth will explode.<br><br><b>[BM]</b> Bijak nampak peluang buat duit. Jangan buat banyak benda serentak; fokus satu bidang, rezeki anda akan mencurah-curah.";
     }
+    
+    // 注意：不再用JS去动态写恋爱和事业的数据了，因为我们在HTML里写死了模糊(Blur)的假文本作为诱饵。
+    
     document.getElementById('resultBox').style.display = 'block';
+    
+    // 自动平滑滚动到结果区域
+    document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
 }
 </script>
 </body>
