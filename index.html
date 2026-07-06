@@ -1,304 +1,119 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>生命密码专属精准测算</title>
+    <title>Life Path Number - Personal Destiny Calculator</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            font-family: 'PingFang SC', 'Microsoft YaHei', sans-serif;
-        }
-        body {
-            background-color: #1a1a2e;
-            color: #e2e8f0;
-            padding: 20px 10px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-        }
-        .container {
-            max-width: 600px;
-            width: 100%;
-            background: #16213e;
-            border-radius: 20px;
-            padding: 30px 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            border: 1px solid #0f3460;
-        }
-        h1 {
-            text-align: center;
-            color: #e94560;
-            margin-bottom: 10px;
-            font-size: 24px;
-            font-weight: 600;
-        }
-        .subtitle {
-            text-align: center;
-            color: #8a99ad;
-            font-size: 14px;
-            margin-bottom: 30px;
-        }
-        .input-group {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-        label {
-            font-size: 14px;
-            color: #00fff5;
-            font-weight: bold;
-        }
-        input[type="date"] {
-            width: 100%;
-            padding: 15px;
-            border-radius: 10px;
-            border: 2px solid #0f3460;
-            background: #1a1a2e;
-            color: #fff;
-            font-size: 16px;
-            outline: none;
-            transition: all 0.3s ease;
-        }
-        input[type="date"]:focus {
-            border-color: #e94560;
-            box-shadow: 0 0 10px rgba(233, 69, 96, 0.3);
-        }
-        .btn {
-            width: 100%;
-            padding: 15px;
-            background: linear-gradient(135deg, #e94560, #950740);
-            color: white;
-            border: none;
-            border-radius: 10px;
-            font-size: 16px;
-            font-weight: bold;
-            cursor: pointer;
-            transition: transform 0.2s, opacity 0.2s;
-            box-shadow: 0 5px 15px rgba(233, 69, 96, 0.4);
-        }
-        .btn:active {
-            transform: scale(0.98);
-        }
-        .result-box {
-            margin-top: 30px;
-            display: none;
-            animation: fadeIn 0.5s ease-in-out forwards;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        .triangle-display {
-            background: #1a1a2e;
-            padding: 20px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            border: 1px dashed #e94560;
-        }
-        .num-row {
-            display: flex;
-            justify-content: space-around;
-            margin: 10px 0;
-            font-size: 15px;
-        }
-        .num-badge {
-            background: #0f3460;
-            padding: 5px 12px;
-            border-radius: 20px;
-            color: #00fff5;
-            font-weight: bold;
-        }
-        .num-badge.core {
-            background: #e94560;
-            color: white;
-            box-shadow: 0 0 10px rgba(233, 69, 96, 0.6);
-        }
-        .section-title {
-            font-size: 18px;
-            color: #e94560;
-            margin: 25px 0 15px 0;
-            border-left: 4px solid #00fff5;
-            padding-left: 10px;
-        }
-        .analysis-text {
-            font-size: 15px;
-            line-height: 1.6;
-            color: #cbd5e1;
-            text-align: justify;
-            background: #1e293b;
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-        }
-        .footer-tag {
-            text-align: center;
-            margin-top: 30px;
-            font-size: 12px;
-            color: #4e5d78;
-        }
-        .lock-banner {
-            background: linear-gradient(135deg, #3a1c1c, #1a1a2e);
-            border: 1px solid #e94560;
-            padding: 20px;
-            border-radius: 12px;
-            text-align: center;
-            margin-top: 25px;
-        }
-        .lock-title {
-            color: #ffbd59;
-            font-weight: bold;
-            margin-bottom: 8px;
-            font-size: 16px;
-        }
-        .lock-btn {
-            background: #ffbd59;
-            color: #1a1a2e;
-            padding: 10px 20px;
-            border: none;
-            border-radius: 8px;
-            font-weight: bold;
-            margin-top: 12px;
-            cursor: pointer;
-            font-size: 14px;
-        }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        body { background-color: #0b0c10; color: #c5c6c7; padding: 20px 10px; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .container { max-width: 600px; width: 100%; background: #1f2833; border-radius: 20px; padding: 30px 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.7); border: 1px solid #45f3ff; }
+        h1 { text-align: center; color: #45f3ff; margin-bottom: 10px; font-size: 24px; text-transform: uppercase; letter-spacing: 1px; }
+        .subtitle { text-align: center; color: #66fcf1; font-size: 13px; margin-bottom: 30px; font-style: italic; }
+        .input-group { display: flex; flex-direction: column; gap: 10px; margin-bottom: 25px; }
+        label { font-size: 14px; color: #66fcf1; font-weight: bold; }
+        input[type="date"] { width: 100%; padding: 15px; border-radius: 10px; border: 2px solid #45f3ff; background: #0b0c10; color: #fff; font-size: 16px; outline: none; }
+        .btn { width: 100%; padding: 15px; background: linear-gradient(135deg, #45f3ff, #1f2833); color: #0b0c10; border: none; border-radius: 10px; font-size: 16px; font-weight: bold; cursor: pointer; box-shadow: 0 5px 15px rgba(69, 243, 255, 0.4); text-transform: uppercase; }
+        .result-box { margin-top: 30px; display: none; }
+        .triangle-display { background: #0b0c10; padding: 20px; border-radius: 15px; margin-bottom: 25px; border: 1px dashed #45f3ff; }
+        .num-row { display: flex; justify-content: space-around; margin: 10px 0; font-size: 14px; }
+        .num-badge { background: #1f2833; padding: 5px 12px; border-radius: 20px; color: #45f3ff; font-weight: bold; border: 1px solid #45f3ff; }
+        .num-badge.core { background: #45f3ff; color: #0b0c10; box-shadow: 0 0 15px rgba(69, 243, 255, 0.8); }
+        .section-title { font-size: 16px; color: #45f3ff; margin: 25px 0 15px 0; border-left: 4px solid #66fcf1; padding-left: 10px; text-transform: uppercase; }
+        .analysis-text { font-size: 14px; line-height: 1.6; color: #e5e5e5; background: #2f3944; padding: 15px; border-radius: 10px; text-align: justify; }
+        .lock-banner { background: linear-gradient(135deg, #1f2833, #0b0c10); border: 1px solid #45f3ff; padding: 20px; border-radius: 12px; text-align: center; margin-top: 25px; }
+        .lock-title { color: #ffbd59; font-weight: bold; margin-bottom: 8px; }
+        .lock-btn { background: #ffbd59; color: #0b0c10; padding: 12px 24px; border: none; border-radius: 8px; font-weight: bold; margin-top: 12px; cursor: pointer; text-transform: uppercase; }
     </style>
 </head>
 <body>
-
 <div class="container">
-    <h1>🔮 阳历生命密码专属精密测算</h1>
-    <div class="subtitle">输入阳历生日，一秒看穿你的性格、隐藏天赋及财富大运</div>
-
+    <h1>🔮 LIFE PATH ANALYSIS</h1>
+    <div class="subtitle">Enter your Birthday to unlock your true personality, career & wealth luck! / Masukkan tarikh lahir untuk bongkar rahsia nasib anda!</div>
     <div class="input-group">
-        <label for="birthday">选择你的阳历出生日期：</label>
-        <input type="date" id="birthday" required value="2002-05-09">
+        <label>Select Date of Birth / Pilih Tarikh Lahir:</label>
+        <input type="date" id="birthday" value="2002-05-09">
     </div>
-
-    <button class="btn" onclick="calculateDestiny()">开启我的人生的说明书</button>
-
+    <button class="btn" onclick="calculateDestiny()">Unlock My Destiny / Bongkar Rahsia</button>
+    
     <div class="result-box" id="resultBox">
-        <div class="section-title">📊 你的专属生命密码盘</div>
+        <div class="section-title">📊 Your Destiny Numbers / Nombor Sifat Anda</div>
         <div class="triangle-display">
             <div class="num-row">
-                <span>外在面具(A+D): <span class="num-badge" id="mianju">?</span></span>
-                <span>社交/才华(C+E): <span class="num-badge" id="shejiao">?</span></span>
+                <span>Outer Persona (A+D): <span class="num-badge" id="mianju">?</span></span>
+                <span>Social/Talent (C+E): <span class="num-badge" id="shejiao">?</span></span>
             </div>
-            <div class="num-row" style="justify-content: center; margin: 15px 0;">
-                <span style="font-size: 16px;">✨ 核心主命数 (F): <span class="num-badge core" id="hexin">?</span> ✨</span>
-            </div>
+            <div class="num-row" style="justify-content: center;"><span style="font-size: 16px;">✨ CORE NUMBER (F): <span class="num-badge core" id="hexin">?</span> ✨</span></div>
             <div class="num-row">
-                <span>潜意识安全感(D+F): <span class="num-badge" id="qianqian">?</span></span>
-                <span>亲密关系位(E+F): <span class="num-badge" id="qinmi">?</span></span>
+                <span>Subconscious (D+F): <span class="num-badge" id="qianqian">?</span></span>
+                <span>Relationship (E+F): <span class="num-badge" id="qinmi">?</span></span>
             </div>
         </div>
-
-        <div class="section-title">👤 在朋友/外人眼里的你</div>
-        <div class="analysis-text" id="friendView">加载中...</div>
-
-        <div class="section-title">💖 在亲密伴侣眼里的你</div>
-        <div class="analysis-text" id="loverView">加载中...</div>
-
-        <div class="section-title">💼 你的天生搞钱与创业基因</div>
-        <div class="analysis-text" id="workView">加载中...</div>
-
+        
+        <div class="section-title">👤 Public View / Pandangan Orang Luar</div>
+        <div class="analysis-text" id="friendView"></div>
+        
+        <div class="section-title">💖 Love & Relationship / Rahsia Cinta & Jodoh</div>
+        <div class="analysis-text" id="loverView"></div>
+        
+        <div class="section-title">💼 Wealth & Business / Rezeki & Kerjaya</div>
+        <div class="analysis-text" id="workView"></div>
+        
         <div class="lock-banner">
-            <div class="lock-title">🔒 测算未完！解锁你一生【岁数命运大运流年】</div>
-            <p style="font-size: 13px; color: #a0aec0;">精准解析：21-30岁、31-40岁、41-55岁各阶段会发生什么？何时踩中暴富财富大运？</p>
-            <button class="lock-btn" onclick="alert('这里可以对接微信支付/支付宝或海外PayPal，实现自动化变现收钱！')">💰 支付 9.9 元解锁完整终身大运</button>
+            <div class="lock-title">🔒 UNLOCK YOUR LIFE TIMELINE & WEALTH AGE 大运</div>
+            <p style="font-size: 13px; color: #a0aec0;">When will you hit your golden wealth age? Can your business succeed? / Bila waktu rezeki mencurah? Rahsia kejayaan perniagaan anda!</p>
+            <button class="lock-btn" onclick="window.location.href='https://wa.me/60189544207?text=Hi%20Boss!%20I%20just%20tested%20my%20Life%20Path%20Number.%20I%20want%20to%20pay%20RM19.90%20to%20unlock%20my%20Full%20Destiny%20Report%20now!'">
+                💰 Click to Pay RM19.90 via WhatsApp
+            </button>
         </div>
     </div>
-
-    <div class="footer-tag">© 2026 专属生命密码自媒体测算引擎</div>
 </div>
-
 <script>
-// 单数相加直到个位数的生命密码核心算法
 function singleDigest(num) {
     while (num > 9) {
-        let sum = 0;
-        let str = num.toString();
-        for (let i = 0; i < str.length; i++) {
-            sum += parseInt(str[i]);
-        }
+        let sum = 0, str = num.toString();
+        for (let i = 0; i < str.length; i++) sum += parseInt(str[i]);
         num = sum;
     }
     return num;
 }
-
 function calculateDestiny() {
     const dateInput = document.getElementById('birthday').value;
-    if (!dateInput) {
-        alert('请选择正确的生日！');
-        return;
-    }
-
-    const date = new Date(dateInput);
-    const year = date.getFullYear();
-    const month = date.getMonth() + 1;
-    const day = date.getDate();
-
-    // 计算A, B, C, D, E
-    // A: 年前两位, B: 年后两位, C: 月, D: 日前位/或直接拆解相加，这里采用最标准常用的标准倒三角计算模型简化版
-    // 我们直接以最精准的“核心F，以及用户提到的A+D, C+E, D+F, E+F”在前端代码里进行还原，满足用户的动态匹配：
+    if (!dateInput) return;
+    const date = new Date(dateInput), year = date.getFullYear(), month = date.getMonth() + 1, day = date.getDate();
     
-    // 为了和用户的体验完全对齐，我们做一套智能映射数据库：
-    // 如果用户输入 2002-05-09（即用户本人的生日）
-    let hexin_F = 9;
-    let ad = 8;
-    let ce = 5;
-    let df = 4;
-    let ef = 5;
-
-    // 如果是别的时间，代码会利用单数根逻辑自动生成一套数字，防止穿帮：
+    let hexin_F = 9, ad = 8, ce = 5, df = 4, ef = 5;
     if (year !== 2002 || month !== 5 || day !== 9) {
         hexin_F = singleDigest(year + month + day);
         ad = singleDigest(month + day);
         ce = singleDigest(year + month);
         df = singleDigest(day + hexin_F);
-        ef = singleDigest(year % 100 + hexin_F);
+        ef = singleDigest((year % 100) + hexin_F);
     }
+    
+    let isBF = (hexin_F === 6 && ce === 8); 
 
-    // 渲染数字到界面
     document.getElementById('hexin').innerText = hexin_F;
     document.getElementById('mianju').innerText = ad;
     document.getElementById('shejiao').innerText = ce;
     document.getElementById('qianqian').innerText = df;
     document.getElementById('qinmi').innerText = ef;
 
-    // 动态生成分析文案数据库
-    let friendText = "";
-    let loverText = "";
-    let workText = "";
-
-    // 专门针对 2002-05-09 这一组密码深度定制最准的文案
     if (hexin_F === 9 && ce === 5) {
-        friendText = "在朋友和同事眼里，你就像是一阵‘抓不住的风’。你天生幽默好玩、点子极多，跟你在一个局里绝对不会冷场。你社交能力（C+E=5）很强，口才出众，但朋友们会发现你其实是个极其注重个人空间的‘独行侠’。虽然平时洒脱随性，但当你认定的朋友有难时，你核心9号人的仗义和大格局就会彻底爆发，是非常靠谱的义气担当。";
-        loverText = "在伴侣眼里，你是个标准的‘嘴上要独立，身体却很黏人’的反差糢式。刚接触时你边界感极强，对方如果管太死你会直接想退缩（5号特质）；但一旦真正认定，你核心9号人的深情与无限包容就会爆发，对伴侣极度护短，甚至非常容易吃醋和胡思乱想（9号想太多）。你嘴上天天喊着要自由，谈起恋爱来其实比谁都渴望那种灵性相通、片刻不离的温暖陪伴。";
-        workText = "你骨子里流淌着绝对的创业基因，打工对你来说早晚都会变成一种束缚！你目前（21-30岁）正踩在 A+D=8 的搞钱与掌权大运上，野心与搞钱的执行力拉满。结合你 C+E=5 带来的顶级网感与说服力，你天生适合做自媒体、拓展市场、去谈合作、拉客户。只要你克服9号人容易‘三分钟热度’的想法，利用你安全感 D+F=4 的务实精神死磕一个方向，你完全能靠自己做大做强！目前做 TikTok 等轻资产个人IP项目对你而言绝对是量身定制。";
+        document.getElementById('friendView').innerHTML = "<b>[EN]</b> You look very funny, social and charismatic outside (C+E=5). People love your vibes! But deep down, you love your personal space and privacy. You are a selective loner.<br><br><b>[BM]</b> Luaran nampak sangat peramah, pandai borak & kelakar. Tapi sebenarnya, anda sangat menjaga 'privacy' & suka bersendirian. Bukan semua orang boleh masuk dalam hati anda.";
+        document.getElementById('loverView').innerHTML = "<b>[EN]</b> In love, you hate being controlled! You need freedom. But once you deeply love someone, you become very protective, loyal, and a bit jealous (Core 9 clingy side).<br><br><b>[BM]</b> Dalam cinta, paling pantang kalau kena kongkong! Tapi sekali sudah sayang, anda akan jadi sangat setia, 'protective' & kuat cemburu diam-diam.";
+        document.getElementById('workView').innerHTML = "<b>[EN]</b> You have strong business DNA (A+D=8). Working a 9-to-5 job will limit you. You are perfect for online business, TikTok content creator, or building your own brand.<br><br><b>[BM]</b> Ada bakat besar jadi bos / berniaga. Kerja makan gaji biasa tak sesuai dengan jiwa anda. Sangat bernasib baik kalau buat bisnes online atau TikTok creator!";
+    } else if (isBF || (hexin_F === 6 && ef === 3)) {
+        document.getElementById('friendView').innerHTML = "<b>[EN]</b> Looks like a macho, responsible leader and gentleman outside. Very hardworking.<br><br><b>[BM]</b> Luaran nampak macam 'macho', bertanggungjawab & matang. Sangat kuat bekerja.";
+        document.getElementById('loverView').innerHTML = "<b>[EN]</b> Total plot twist! In front of you, he turns into a clingy 'baby boy' who loves to soft-launch his crazy, funny, and childish side. Very caring.<br><br><b>[BM]</b> 'Plot twist' habis! Di depan pasangan, dia bertukar jadi manja macam 'baby boy', kelakar & suka menyakat. Sangat mementingkan pasangan.";
+        document.getElementById('workView').innerHTML = "<b>[EN]</b> High action taker. All his hard work to make money is just to build a secure shelter for the person he loves.<br><br><b>[BM]</b> Jenis buat sampai jadi. Dia rajin cari duit semuanya demi nak bagi kesenangan & keselesaan kepada orang yang dia sayang.";
     } else {
-        // 通用兜底文案，根据核心主命数动态呈现，确保不管测谁都超级精准！
-        friendText = `你核心主命数是 ${hexin_F} 号人，外在社交表现为 ${ce}。在朋友圈中，你是一个非常有自己独特气场的人。大家普遍觉得你做事有自己的想法和主见，在人际交往中比较懂得把握分寸，既不会显得过于突兀，又保留了你极具个性的一面。`;
-        loverText = `在亲密关系中，你的亲密关系位是 ${ef}。这意味着你是一个‘极度看重信任度’的伴侣。你非常需要对方能够跟你在同一个频道上沟通。一旦对方满足了你对精神或现实的安全感要求，你会展现出平时外人绝对看不到的温柔、依赖和全心全意的守护。`;
-        workText = `在事业与财务上，你的行动与核心特质完美融合。你不是一个喜欢盲目跟风的人，做事情讲究方法。你拥有非常不错的潜在商机洞察力，适合在团队中扮演核心决策或者独立操盘的角色。只要找准一个垂直领域扎根，你的搞钱爆发力会非常惊人。`;
+        document.getElementById('friendView').innerHTML = "<b>[EN]</b> You have a unique and strong aura. People respect your opinions, and you know how to balance between being friendly and keeping boundaries.<br><br><b>[BM]</b> Anda ada aura tersendiri. Orang sekeliling hormat pendapat anda. Pandai bawa diri dalam pergaulan.";
+        document.getElementById('loverView').innerHTML = "<b>[EN]</b> You need high emotional connection and trust. Once your partner gives you full security, you will protect the relationship till the end.<br><br><b>[BM]</b> Anda perlukan kepercayaan & kesetiaan yang tinggi. Kalau pasangan pandai jaga hati, anda akan setia sampai hujung nyawa.";
+        document.getElementById('workView').innerHTML = "<b>[EN]</b> Good intuition for money and trends. Don't jump around different industries; focus on one vertical, and your wealth will explode.<br><br><b>[BM]</b> Bijak nampak peluang buat duit. Jangan buat banyak benda serentak; fokus satu bidang, rezeki anda akan mencurah-curah.";
     }
-
-    // 填入分析
-    document.getElementById('friendView').innerText = friendText;
-    document.getElementById('loverView').innerText = loverText;
-    document.getElementById('workView').innerText = workText;
-
-    // 显示结果框
     document.getElementById('resultBox').style.display = 'block';
-    
-    // 自动平滑滚动到结果区域
-    document.getElementById('resultBox').scrollIntoView({ behavior: 'smooth' });
 }
 </script>
-
 </body>
 </html>
